@@ -1,4 +1,4 @@
-version: '3' # composeファイルのバーション指定
+version: "3" # composeファイルのバーション指定
 services:
   go: # service名
     build: ./server # ビルドに使用するDockerfileがあるディレクトリ指定
@@ -7,9 +7,22 @@ services:
       - ./server:/go/src/app # マウントディレクトリ指定
     ports:
       - "8080:8080"
+    depends_on:
+      - db
   node:
     build: ./front
     tty: true # コンテナの起動永続化
     volumes:
       - ./front:/app # マウントディレクトリ指定
-
+  db:
+    build: ./mysql
+    environment:
+      - MYSQL_USER=local
+      - MYSQL_PASSWORD=local
+      - MYSQL_ROOT_PASSWORD=local
+      - TZ=Asia/Tokyo
+    volumes:
+      - .data/mysql:/var/lib/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3310:3306"

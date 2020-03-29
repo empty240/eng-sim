@@ -7,4 +7,7 @@ WORKDIR /go/src/app
 # ホストのファイルをコンテナの作業ディレクトリに移行
 #ADD . /go/src/app
 
+#RUN realize s
+#CMD ["realize", "s"]
+
 EXPOSE 8080
