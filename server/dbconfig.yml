@@ -1,0 +1,10 @@
+development:
+  dialect: mysql
+  dir: db/migrations
+  datasource: local:local@tcp(db)/engsim?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
+
+production:
+  dialect: postgres
+  dir: migrations/postgres
+  datasource: dbname=engsim sslmode=disable
+  table: migrations
